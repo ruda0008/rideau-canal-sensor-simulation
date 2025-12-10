@@ -64,7 +64,7 @@ The simulator displays real-time safety status based on NCC guidelines:
 | **Caution** | 🟡 | Ice ≥ 25cm AND Surface Temp ≤ 0°C | Skating allowed but conditions deteriorating |
 | **Unsafe** | 🔴 | All other conditions | Ice too thin or too warm - unsafe |
 
-## 🛠️ Prerequisites
+##  Prerequisites
 
 ### Required Software
 
@@ -80,7 +80,7 @@ The simulator displays real-time safety status based on NCC guidelines:
 - **Azure IoT Hub** with 3 registered devices
 - **Device connection strings** (from Azure Portal)
 
-## 📥 Installation
+##  Installation
 
 ### Step 1: Clone the Repository
 ```
@@ -267,7 +267,7 @@ self.ice_thickness += random.uniform(-0.5, 0.3)
 self.ice_thickness = max(20, min(40, self.ice_thickness))
 ```
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 
 ### Problem 1: "Missing environment variables"
@@ -337,41 +337,9 @@ Total messages = 180 × 3 = 540
 
 
 
-## 📚 Architecture Context
-
-This simulator is **Component 1** of a 4-part system:
-```
-┌─────────────────────┐
-│ 1. Sensor Simulator │ ← You are here
-│    (This Repo)      │
-└──────────┬──────────┘
-           │ MQTT/HTTPS
-           ↓
-┌─────────────────────┐
-│ 2. Azure IoT Hub    │
-└──────────┬──────────┘
-           │
-           ↓
-┌─────────────────────┐
-│ 3. Stream Analytics │
-└──────────┬──────────┘
-           │
-     ┌─────┴─────┐
-     ↓           ↓
-┌─────────┐ ┌─────────┐
-│ Cosmos  │ │  Blob   │
-│   DB    │ │ Storage │
-└────┬────┘ └─────────┘
-     │
-     ↓
-┌─────────────────────┐
-│ 4. Web Dashboard    │
-└─────────────────────┘
-```
 
 
-
-## 👤 Author
+##  Author
 
 **Aryan Rudani**   
 Algonquin College  
