@@ -2,7 +2,7 @@
 
 IoT sensor simulator for the Rideau Canal Skateway real-time monitoring system.
 
-## 📋 Overview
+## Overview
 
 This Python application simulates three IoT sensors deployed at different locations along the Rideau Canal Skateway in Ottawa, Ontario:
 
@@ -12,7 +12,7 @@ This Python application simulates three IoT sensors deployed at different locati
 
 The simulator generates realistic sensor data and sends it to Azure IoT Hub every 10 seconds, enabling real-time monitoring of skating conditions.
 
-## 🎯 Purpose
+##  Purpose
 
 This simulator is part of a complete IoT monitoring system that:
 1. **Simulates sensors** (this repository)
@@ -20,7 +20,7 @@ This simulator is part of a complete IoT monitoring system that:
 3. **Stores aggregations** in Azure Cosmos DB and Azure Blob Storage
 4. **Displays conditions** on a live web dashboard
 
-## 📊 Monitored Parameters
+##  Monitored Parameters
 
 Each sensor continuously monitors four critical parameters:
 
@@ -37,11 +37,7 @@ Each sensor continuously monitors four critical parameters:
 
 The simulator uses a **random walk algorithm** to generate realistic data:
 ```python
-# Instead of random jumps:
-ice_thickness = random.uniform(20, 40)  # ❌ Unrealistic
-
-# We use gradual changes:
-ice_thickness += random.uniform(-0.5, 0.3)  # ✅ Realistic
+ice_thickness += random.uniform(-0.5, 0.3) 
 ice_thickness = max(20, min(40, ice_thickness))  # Keep in bounds
 ```
 
@@ -73,15 +69,10 @@ The simulator displays real-time safety status based on NCC guidelines:
 ### Required Software
 
 - **Python 3.8 or higher**
-  - Check version: `python --version` or `python3 --version`
-  - Download: [python.org](https://www.python.org/downloads/)
 
 - **pip** (Python package manager)
-  - Usually comes with Python
-  - Check: `pip --version`
 
 - **Git** (optional, for cloning)
-  - Download: [git-scm.com](https://git-scm.com/)
 
 ### Azure Requirements
 
@@ -92,12 +83,8 @@ The simulator displays real-time safety status based on NCC guidelines:
 ## 📥 Installation
 
 ### Step 1: Clone the Repository
-```bash
-# Using Git
-git clone https://github.com/yourusername/rideau-canal-sensor-simulation.git
-cd rideau-canal-sensor-simulation
-
-# Or download ZIP from GitHub and extract
+```
+https://github.com/ruda0008/rideau-canal-sensor-simulation
 ```
 
 ### Step 2: Create Virtual Environment (Recommended)
@@ -107,17 +94,7 @@ cd rideau-canal-sensor-simulation
 - Prevents conflicts with other Python projects
 - Best practice for Python development
 
-**Windows:**
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
 
-**macOS/Linux:**
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
 
 **You'll see `(venv)` in your terminal when activated.**
 
@@ -130,40 +107,13 @@ pip install -r requirements.txt
 - `azure-iot-device` - Microsoft's IoT Hub SDK
 - `python-dotenv` - Environment variable loader
 
-### Step 4: Configure Environment Variables
-```bash
-# Copy the example file
-cp .env.example .env
+### Step 4: Configure Environment Variable
 
-# Windows (if cp doesn't work):
-copy .env.example .env
-```
 
 **Edit `.env` with your actual connection strings:**
 Use any text editor (Notepad, VS Code, nano, vim)
-```bash
-# Windows
-notepad .env
 
-# macOS
-open -e .env
 
-# Linux
-nano .env
-```
-
-## 🔑 Getting Connection Strings from Azure
-
-### Step-by-Step:
-
-1. **Open Azure Portal** → portal.azure.com
-2. **Navigate to your IoT Hub**
-3. Go to **"Devices"** (left menu under "Device management")
-4. Click on **"dows-lake-sensor"**
-5. Find **"Primary Connection String"**
-6. Click the **copy icon** 📋
-7. Paste into your `.env` file
-8. **Repeat for other two devices**
 
 ### .env File Format:
 ```env
@@ -174,12 +124,12 @@ FIFTH_AVENUE_CONNECTION_STRING=HostName=rideau-iot-john.azure-devices.net;Device
 NAC_CONNECTION_STRING=HostName=rideau-iot-john.azure-devices.net;DeviceId=nac-sensor;SharedAccessKey=ghi789rst==
 ```
 
-⚠️ **CRITICAL:** 
+ **CRITICAL:** 
 - Replace ALL THREE connection strings with your actual values
 - Each should be ONE LONG LINE (no line breaks)
 - No extra spaces before or after the `=`
 
-## 🚀 Usage
+##  Usage
 
 ### Basic Usage
 
@@ -188,36 +138,7 @@ Run the simulator with default settings (30 minutes):
 python sensor_simulator.py
 ```
 
-### Expected Output
-```
-Rideau Canal Skateway - Sensor Simulator
-=========================================
 
-Starting simulator...
-
-==================================================================================
-RIDEAU CANAL SKATEWAY - IoT SENSOR SIMULATOR
-==================================================================================
-Simulating 3 locations for 30 minutes
-Sending data every 10 seconds (180 readings per sensor)
-Total messages: 540
-
-Connecting to Azure IoT Hub...
-✓ Connected: Dow's Lake (dows-lake-sensor)
-✓ Connected: Fifth Avenue (fifth-avenue-sensor)
-✓ Connected: NAC (nac-sensor)
-
-==================================================================================
-STATUS | LOCATION        | ICE THICKNESS | SURFACE TEMP | SNOW ACCUM | EXTERNAL TEMP
-==================================================================================
-🟢 SAFE      | Dow's Lake      | Ice: 32.45cm | Surf: -3.21°C | Snow:  2.10cm | Ext: -8.50°C
-🟡 CAUTION   | Fifth Avenue    | Ice: 27.80cm | Surf: -0.50°C | Snow:  1.80cm | Ext: -6.20°C
-🔴 UNSAFE    | NAC             | Ice: 24.10cm | Surf:  0.80°C | Snow:  0.50cm | Ext: -4.10°C
-🟢 SAFE      | Dow's Lake      | Ice: 32.51cm | Surf: -3.18°C | Snow:  2.15cm | Ext: -8.47°C
-🟡 CAUTION   | Fifth Avenue    | Ice: 27.75cm | Surf: -0.55°C | Snow:  1.82cm | Ext: -6.18°C
-🔴 UNSAFE    | NAC             | Ice: 24.15cm | Surf:  0.75°C | Snow:  0.52cm | Ext: -4.12°C
-...
-```
 
 ### Modifying Duration
 
@@ -230,31 +151,14 @@ asyncio.run(run_simulator(duration_minutes=30))
 asyncio.run(run_simulator(duration_minutes=60))  # 1 hour
 ```
 
-Or create a custom script:
-```python
-# quick_test.py
-from sensor_simulator import run_simulator
-import asyncio
-
-asyncio.run(run_simulator(duration_minutes=5))  # 5-minute test
-```
-
 ### Stopping the Simulator
 
 Press **Ctrl+C** to stop gracefully:
-```
-^C
-✗ Simulation interrupted by user (Ctrl+C)
 
-Disconnecting sensors...
-✓ Disconnected: Dow's Lake
-✓ Disconnected: Fifth Avenue
-✓ Disconnected: NAC
-```
 
 The simulator will properly disconnect all sensors before exiting.
 
-## 📦 Sensor Data Format
+##  Sensor Data Format
 
 ### JSON Schema
 
@@ -303,7 +207,7 @@ Each sensor reading is sent as a JSON object:
 - Standard format for APIs
 - Works with Stream Analytics `TIMESTAMP BY`
 
-## 🏗️ Code Structure
+##  Code Structure
 ```
 sensor_simulator.py (350+ lines)
 │
@@ -365,37 +269,8 @@ self.ice_thickness = max(20, min(40, self.ice_thickness))
 
 ## 🐛 Troubleshooting
 
-### Problem 1: "Connection failed"
 
-**Symptoms:**
-```
-✗ Connection failed for Dow's Lake: [SSL: CERTIFICATE_VERIFY_FAILED]
-```
-
-**Possible Causes & Solutions:**
-
-1. **Internet connection issue**
-   - Check your internet connection
-   - Try: `ping google.com`
-
-2. **Wrong connection string**
-   - Verify you copied the ENTIRE string (they're long!)
-   - Check for extra spaces or line breaks
-   - Make sure you copied from "Primary Connection String" not "Secondary"
-
-3. **IoT Hub not running**
-   - Check Azure Portal → IoT Hub → Overview
-   - Status should be "Active"
-
-4. **Device not enabled**
-   - Azure Portal → IoT Hub → Devices
-   - Check "Status" column shows "Enabled"
-
-5. **Firewall blocking**
-   - IoT Hub uses port 8883 (MQTT) or 443 (HTTPS)
-   - Check corporate/school firewall settings
-
-### Problem 2: "Missing environment variables"
+### Problem 1: "Missing environment variables"
 
 **Symptoms:**
 ```
@@ -408,15 +283,6 @@ self.ice_thickness = max(20, min(40, self.ice_thickness))
 **Solutions:**
 
 1. **Check .env file exists**
-```bash
-   # List files (Windows)
-   dir
-   
-   # List files (Mac/Linux)
-   ls -la
-   
-   # Should see .env file
-```
 
 2. **Verify .env format**
    - Open `.env` in text editor
@@ -436,7 +302,7 @@ FIFTH_AVENUE_CONNECTION_STRING=HostName=...
 NAC_CONNECTION_STRING=HostName=...
 ```
 
-### Problem 3: "Module not found"
+### Problem 2: "Module not found"
 
 **Symptoms:**
 ```
@@ -446,92 +312,11 @@ ModuleNotFoundError: No module named 'azure'
 **Solution:**
 ```bash
 # Make sure virtual environment is activated
-# You should see (venv) in terminal
-
 # Install dependencies
 pip install -r requirements.txt
 
-# Verify installation
-pip list | grep azure
 ```
 
-### Problem 4: Python command not found
-
-**Symptoms:**
-```bash
-python: command not found
-```
-
-**Solutions:**
-
-**Try python3:**
-```bash
-python3 sensor_simulator.py
-python3 --version
-```
-
-**Windows - Add to PATH:**
-1. Search "Environment Variables" in Start Menu
-2. Edit PATH variable
-3. Add Python installation directory
-
-**Mac - Install via Homebrew:**
-```bash
-brew install python3
-```
-
-### Problem 5: Permission denied (Mac/Linux)
-
-**Symptoms:**
-```bash
-./sensor_simulator.py: Permission denied
-```
-
-**Solutions:**
-
-**Option 1: Use python command**
-```bash
-python3 sensor_simulator.py
-```
-
-**Option 2: Make executable**
-```bash
-chmod +x sensor_simulator.py
-./sensor_simulator.py
-```
-
-### Problem 6: No data appearing in Azure
-
-**Check this flow:**
-
-1. **Simulator sending?**
-   - See messages in terminal? ✓
-   - No error messages? ✓
-
-2. **IoT Hub receiving?**
-   - Azure Portal → IoT Hub → Overview
-   - Check "Device to cloud messages" chart
-   - Should see activity
-
-3. **Stream Analytics running?**
-   - Azure Portal → Stream Analytics Job
-   - Status should be "Running"
-   - Check "Monitoring" for errors
-
-4. **Cosmos DB receiving?**
-   - Takes 5 minutes for first aggregation
-   - Check Data Explorer → Items
-   - Refresh every minute
-
-## 📈 Performance Metrics
-
-### Resource Usage
-
-Running on typical laptop:
-- **CPU:** 2-5% (very light)
-- **Memory:** ~50MB
-- **Network:** ~1KB per message
-- **Total data (30 min):** ~180MB
 
 ### Message Statistics
 
@@ -550,65 +335,7 @@ Messages per sensor = 30 × 6 = 180
 Total messages = 180 × 3 = 540
 ```
 
-## 🧪 Testing Checklist
 
-Before running for your project, verify:
-
-- [ ] Python 3.8+ installed
-- [ ] Virtual environment created and activated
-- [ ] Dependencies installed (`pip install -r requirements.txt`)
-- [ ] Azure IoT Hub created
-- [ ] 3 devices registered in IoT Hub
-- [ ] Connection strings copied to `.env`
-- [ ] `.env` file not committed to Git (check with `git status`)
-- [ ] Test run successful (5 minutes)
-- [ ] Azure Portal shows messages being received
-- [ ] No errors in terminal output
-
-## 🔧 Development
-
-### Running in Development Mode
-
-For quick testing (5-minute run):
-```python
-# Edit sensor_simulator.py
-asyncio.run(run_simulator(duration_minutes=5))
-```
-
-### Adding New Locations
-
-To add a fourth location:
-
-1. **Register device in Azure IoT Hub**
-   - Device ID: `bronson-bridge-sensor`
-
-2. **Add to SENSORS dict**
-```python
-SENSORS = {
-    # ... existing sensors ...
-    "bronson-bridge": {
-        "device_id": "bronson-bridge-sensor",
-        "connection_string": os.getenv("BRONSON_BRIDGE_CONNECTION_STRING"),
-        "location": "Bronson Bridge"
-    }
-}
-```
-
-3. **Add to .env**
-```env
-BRONSON_BRIDGE_CONNECTION_STRING=HostName=...
-```
-
-### Customizing Sensor Parameters
-
-Adjust baseline values in `SensorSimulator.__init__()`:
-```python
-# Make ice thicker on average
-self.ice_thickness = random.uniform(35, 40)  # Instead of 28-35
-
-# Make it colder
-self.surface_temp = random.uniform(-15, -5)  # Instead of -10 to -1
-```
 
 ## 📚 Architecture Context
 
@@ -642,9 +369,7 @@ This simulator is **Component 1** of a 4-part system:
 └─────────────────────┘
 ```
 
-## 📝 License
 
-This project is for educational purposes as part of CST8916 - Remote Data and Real-time Applications.
 
 ## 👤 Author
 
@@ -660,14 +385,4 @@ CST8916 - Fall 2025
 - Check the Troubleshooting section above
 - Review your `.env` file
 - Verify Azure IoT Hub is running
-- Contact course instructor
 
-**Azure Portal issues?**
-- Check Azure service health
-- Verify subscription is active
-- Check billing (free tier limits)
-
-## 🔗 Related Repositories
-
-- **Dashboard:** [rideau-canal-dashboard](https://github.com/yourusername/rideau-canal-dashboard)
-- **Documentation:** [rideau-canal-monitoring](https://github.com/yourusername/rideau-canal-monitoring)
