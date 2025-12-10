@@ -31,7 +31,7 @@ Each sensor continuously monitors four critical parameters:
 | **Snow Accumulation** | cm | 0-10 | Surface condition - affects skating quality |
 | **External Temperature** | °C | -20 to 5 | Weather condition tracking - affects ice formation |
 
-## 🔬 How It Works
+##  How It Works
 
 ### Random Walk Algorithm
 
